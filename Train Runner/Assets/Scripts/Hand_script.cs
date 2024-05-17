@@ -42,6 +42,11 @@ public class Hand_script : MonoBehaviour
                 mousePosition.y -= 1f;
                 mousePosition.x += 0.8f;
             }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                for (int i = 0; i < 100; i++)
+                    transform.Rotate(0, 0, -900 * Time.deltaTime, Space.Self);
+            }
             transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
         }
     }
