@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class move : MonoBehaviour
 {
@@ -33,6 +34,14 @@ public class move : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+            if (transform.position.x > mousePosition.x)
+            {
+                transform.localScale = new Vector3(-0.5f, transform.localScale.y, transform.localScale.z);
+            }
+            else if (transform.position.x < mousePosition.x)
+            {
+                transform.localScale = new Vector3(0.5f, transform.localScale.y, transform.localScale.z);
+            }
 
 
             // Получаем текущий масштаб по оси Y
