@@ -5,30 +5,21 @@ using UnityEngine;
 public class Hand_script : MonoBehaviour
 {
     private static float speed = 3f;
-    private static bool flag = false;
     private Renderer visual;
-    // Start is called before the first frame update
-    // Start is called before the first frame update
+
+
     void Start()
     {
         visual = GetComponent<Renderer>();
-        visual.enabled = !visual.enabled;
-        StartCoroutine(ExampleCoroutine());
-    }
-
-    IEnumerator ExampleCoroutine()
-    {
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
-        flag = true;
-        visual.enabled = true;
+        visual.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (flag)
+        if (GameManager.RyanMove)
         {
+            visual.enabled = true;
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             string objectName = gameObject.name;
 
