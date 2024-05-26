@@ -9,25 +9,28 @@ public class exit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Start the coroutine we define below named ExampleCoroutine.
-        //visual = GetComponent<Renderer>();
-        //visual.enabled = !visual.enabled;
-        //StartCoroutine(ExampleCoroutine());
+        visual = GetComponent<Renderer>();
+        visual.enabled = !visual.enabled;
+        StartCoroutine(ExampleCoroutine());
     }
 
     IEnumerator ExampleCoroutine()
     {
         //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3000);
+
         visual.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < -2.4)
+        if (visual.enabled)
         {
-            transform.position += new Vector3(speed, 0, 0);
+            if (transform.position.x < -2.4)
+            {
+                transform.position += new Vector3(speed, 0, 0);
+            }
         }
     }
 }
