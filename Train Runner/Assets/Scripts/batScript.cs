@@ -27,7 +27,8 @@ public class batScript : MonoBehaviour
         if ((Math.Abs(transform.position.x - hand1.transform.position.x) < 0.5f && Math.Abs(transform.position.y - hand1.transform.position.y) < 0.5f) ||
             (Math.Abs(transform.position.x - hand2.transform.position.x) < 0.5f && Math.Abs(transform.position.y - hand2.transform.position.y) < 0.5f))
         {
-            TakeIt = true;
+            if (!GameManager.TakeSomething)
+                TakeIt = true;
         }
 
         if (transform.position.x > mousePosition.x && TakeIt && !Punch)
@@ -53,7 +54,12 @@ public class batScript : MonoBehaviour
             {
                 transform.position = new Vector3(hand1.transform.position.x + 2, hand1.transform.position.y, 0);
             }
-            
+        }
+
+        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && TakeIt)
+        {
+            TakeIt = false;
+            transform.position += new Vector3(mousePosition.normalized.x * 2, mousePosition.normalized.y * 2, 0);
         }
 
         if (Punch)
