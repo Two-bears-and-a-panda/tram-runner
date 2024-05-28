@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private static GameObject hand2;
     private static GameObject leg1;
     private static GameObject leg2;
+    private static GameObject bat;
 
     //Всякие флаги
     public static bool visableFlag = false;
@@ -41,7 +42,8 @@ public class GameManager : MonoBehaviour
         hand2 = GameObject.Find("Hand2");
         leg1 = GameObject.Find("Leg1");
         leg2 = GameObject.Find("Leg2");
-        
+        bat = GameObject.Find("bat");
+
         //Перемещаем объекты в нужные места
         arrowLeft.transform.position = new Vector3(-4.96f, 0.02f, 0);
         arrowRight.transform.position = new Vector3(5.15f, 0.08f, 0);
@@ -76,6 +78,7 @@ public class GameManager : MonoBehaviour
         //Когда нажата Lets Go, то ждём немного
         if (StartButton.IsItLetsGo)
         {
+            MusicScript.TimeToPlay = true;
             StartCoroutine(ExampleCoroutine(2.5f));
         }
 
@@ -87,7 +90,7 @@ public class GameManager : MonoBehaviour
             // Пройтись по всем рендерерам и отключить их
             foreach (Renderer renderer in allRenderers)
             {
-                if (renderer.gameObject.name != "Square" && renderer.gameObject.name != "Grass")
+                if (renderer.gameObject.name != "Square" && renderer.gameObject.name != "Grass" && renderer.gameObject.name != "bat")
                     renderer.enabled = false;
             }
 
@@ -103,6 +106,8 @@ public class GameManager : MonoBehaviour
             //Разрешаем Гослингу бежать за мышкой
             RyanMove = true;
             visableFlag = false;
+
+            bat.transform.position = new Vector3(-6, 0, 0);
         }
     }
 }
