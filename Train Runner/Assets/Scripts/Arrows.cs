@@ -5,17 +5,30 @@ using System;
 
 public class Arrows : MonoBehaviour
 {
-    public List<string> skins = new List<string> { "Ryan", "Ken" };
+    public List<string> skins = new List<string> { "Ryan", "Ken", "LaLaLand" };
+    public static bool SkinIsChange = false;
 
 
     public void OnButtonClick(string direction)
     {
+        SkinIsChange = true;
+        skins.Add("LaLaLand");
         if (direction == "left" && move.currentSkin == 1)
         {
             move.currentSkin = 0;
             move.skin = skins[move.currentSkin];
         }
         else if (direction == "right" && move.currentSkin == 0)
+        {
+            move.currentSkin = 1;
+            move.skin = skins[move.currentSkin];
+        }
+        else if (direction == "right" && move.currentSkin == 1)
+        {
+            move.currentSkin = 2;
+            move.skin = skins[move.currentSkin];
+        }
+        else if (direction == "left" && move.currentSkin == 2)
         {
             move.currentSkin = 1;
             move.skin = skins[move.currentSkin];
