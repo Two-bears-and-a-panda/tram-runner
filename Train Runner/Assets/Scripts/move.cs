@@ -13,6 +13,7 @@ public class move : MonoBehaviour
     public Animator animator;
     public static string skin = "Ryan";
     public static int currentSkin = 0;
+    public static string moveDirection = "";
 
 
     void Start()
@@ -35,24 +36,31 @@ public class move : MonoBehaviour
         {
             if (skin == "Ken")
             {
-                animator.SetFloat("SkinType", 100f);
+                animator.SetFloat("SkinType", 1.5f);
+            }
+            else if (skin == "Ryan")
+            {
+                animator.SetFloat("SkinType", 0.5f);
             }
             else
             {
-                animator.SetFloat("SkinType", -2f);
+                animator.SetFloat("SkinType", 2.5f);
             }
         }
         if (GameManager.RyanMove)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+
             if (transform.position.x > mousePosition.x)
             {
-                transform.localScale = new Vector3(-0.5f, transform.localScale.y, transform.localScale.z);
+                moveDirection = "left";
+                transform.localScale = new Vector3(-Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (transform.position.x < mousePosition.x)
             {
-                transform.localScale = new Vector3(0.5f, transform.localScale.y, transform.localScale.z);
+                moveDirection = "right";
+                transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
     }
