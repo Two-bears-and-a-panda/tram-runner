@@ -20,11 +20,14 @@ public class GameManager : MonoBehaviour
     private static GameObject leg1;
     private static GameObject leg2;
     private static GameObject bat;
+    private static GameObject cake;
+    private static GameObject capsule;
 
     //Всякие флаги
     public static bool visableFlag = false;
     public static bool CameraMove = false;
     public static bool RyanMove = false;
+    public static bool TakeSomething = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,8 @@ public class GameManager : MonoBehaviour
         leg1 = GameObject.Find("Leg1");
         leg2 = GameObject.Find("Leg2");
         bat = GameObject.Find("bat");
+        cake = GameObject.Find("Cake");
+        capsule = GameObject.Find("Capsule");
 
         //Перемещаем объекты в нужные места
         arrowLeft.transform.position = new Vector3(-4.96f, 0.02f, 0);
@@ -57,6 +62,7 @@ public class GameManager : MonoBehaviour
         hand2.transform.position = new Vector3(0, 0, 0);
         leg1.transform.position = new Vector3(0, 0, 0);
         leg2.transform.position = new Vector3(0, 0, 0);
+        capsule.transform.position = new Vector3(-7.6f, 4.3f, 0);
 
         // Делаем траву очень маленькой, чтоб она исчезла
         grass.transform.localScale = new Vector3(0, 0, 0);
@@ -75,6 +81,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        TakeSomething = (batScript.TakeIt || CakeScript.TakeIt) ? true : false;
+        Debug.Log(TakeSomething);
         //Когда нажата Lets Go, то ждём немного
         if (StartButton.IsItLetsGo)
         {
@@ -90,7 +98,8 @@ public class GameManager : MonoBehaviour
             // Пройтись по всем рендерерам и отключить их
             foreach (Renderer renderer in allRenderers)
             {
-                if (renderer.gameObject.name != "Square" && renderer.gameObject.name != "Grass" && renderer.gameObject.name != "bat")
+                if (renderer.gameObject.name != "Square" && renderer.gameObject.name != "Grass" && renderer.gameObject.name != "bat"
+                    && renderer.gameObject.name != "Cake" && renderer.gameObject.name != "Capsule")
                     renderer.enabled = false;
             }
 
@@ -108,6 +117,7 @@ public class GameManager : MonoBehaviour
             visableFlag = false;
 
             bat.transform.position = new Vector3(-6, 0, 0);
+            cake.transform.position = new Vector3(6, 0, 0);
         }
     }
 }
