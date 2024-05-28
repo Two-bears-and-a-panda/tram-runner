@@ -5,7 +5,7 @@ using System;
 
 public class move : MonoBehaviour
 {
-    private static float speed = 3f;
+    public static float speed = 3f;
     private static bool IsTimeToShowSkin = false;
     private float scaleAmount = 0.3f;
     private float scaleSpeed = 1.3f;
