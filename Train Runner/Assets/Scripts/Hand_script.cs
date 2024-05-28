@@ -45,7 +45,7 @@ public class Hand_script : MonoBehaviour
                 mousePosition.y -= 1f;
                 mousePosition.x += 1.3f;
             }
-            if (Input.GetKeyDown(KeyCode.Space) && !batScript.TakeIt)
+            if (Input.GetKeyDown(KeyCode.Space) && !GameManager.TakeSomething)
             {
                 if (move.moveDirection == "left" && objectName == "Hand1")
                 {
