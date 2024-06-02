@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
-using System;
 
 public class GameManager : MonoBehaviour
 {
-    //Объекты сцены
+    // Объекты сцены
     private static GameObject arrowLeft;
     private static GameObject arrowRight;
     private static GameObject plane;
@@ -22,8 +20,9 @@ public class GameManager : MonoBehaviour
     private static GameObject bat;
     private static GameObject cake;
     private static GameObject capsule;
+    private static GameObject conductor;
 
-    //Всякие флаги
+    // Всякие флаги
     public static bool visableFlag = false;
     public static bool CameraMove = false;
     public static bool RyanMove = false;
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Получаем объекты
+        // Получаем объекты
         arrowLeft = GameObject.Find("ArrowLeft");
         arrowRight = GameObject.Find("ArrowRight");
         plane = GameObject.Find("back");
@@ -48,8 +47,9 @@ public class GameManager : MonoBehaviour
         bat = GameObject.Find("bat");
         cake = GameObject.Find("Cake");
         capsule = GameObject.Find("Capsule");
+        conductor = GameObject.Find("Conductor");
 
-        //Перемещаем объекты в нужные места
+        // Перемещаем объекты в нужные места
         arrowLeft.transform.position = new Vector3(-4.96f, 0.02f, 0);
         arrowRight.transform.position = new Vector3(5.15f, 0.08f, 0);
         light.transform.position = new Vector3(-0.2200007f, -2.38f, 0);
@@ -67,31 +67,34 @@ public class GameManager : MonoBehaviour
         // Делаем траву очень маленькой, чтоб она исчезла
         grass.transform.localScale = new Vector3(0, 0, 0);
 
-        //Флаг говорит, что камере теперь можно идти за Гослингом
+        // Флаг говорит, что камере теперь можно идти за Гослингом
         CameraMove = true;
+
+        // Скрываем Conductor в начале
+        conductor.GetComponent<Renderer>().enabled = false;
     }
 
-    //функция ожидания
+    // Функция ожидания
     IEnumerator ExampleCoroutine(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         visableFlag = true;
     }
 
-
     void Update()
     {
         TakeSomething = (batScript.TakeIt || CakeScript.TakeIt) ? true : false;
         Debug.Log(TakeSomething);
-        //Когда нажата Lets Go, то ждём немного
+
+        // Когда нажата Lets Go, то ждём немного
         if (StartButton.IsItLetsGo)
         {
             MusicScript.TimeToPlay = true;
             StartCoroutine(ExampleCoroutine(2.5f));
         }
 
-        //Если была нажата Lets Go, то visableFlag == true
-        //Тут мы расставляем все объекты на сцену, а старые скрываем
+        // Если была нажата Lets Go, то visableFlag == true
+        // Тут мы расставляем все объекты на сцену, а старые скрываем
         if (visableFlag)
         {
             Renderer[] allRenderers = FindObjectsOfType<Renderer>();
@@ -103,21 +106,26 @@ public class GameManager : MonoBehaviour
                     renderer.enabled = false;
             }
 
-            //Появляем траву
+            // Появляем траву
             var grass = GameObject.Find("Grass");
             grass.transform.localScale = new Vector3(0.9264008f, 0.9264008f, 0.9264008f);
 
-            //Уменьшаем Гослинга и появляем его
+            // Уменьшаем Гослинга и появляем его
             ryan.transform.localScale = new Vector3(0.5f, 0.5f, 0);
             Renderer ryanRender = ryan.GetComponent<Renderer>();
             ryanRender.enabled = true;
 
-            //Разрешаем Гослингу бежать за мышкой
+            // Включаем Conductor и устанавливаем цель на Ryan
+            Renderer conductorRender = conductor.GetComponent<Renderer>();
+            conductorRender.enabled = true;
+            conductor.GetComponent<MoveToGosling>().target = ryan;
+
+            // Разрешаем Гослингу бежать за мышкой
             RyanMove = true;
             visableFlag = false;
 
             bat.transform.position = new Vector3(-6, 0, 0);
             cake.transform.position = new Vector3(6, 0, 0);
-        }
+        }        
     }
 }

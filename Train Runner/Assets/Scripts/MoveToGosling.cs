@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class MoveToGosling : MonoBehaviour
 {
@@ -12,17 +11,8 @@ public class MoveToGosling : MonoBehaviour
     void Start()
     {
         visual = GetComponent<Renderer>();
-        visual.enabled = !visual.enabled;
-        StartCoroutine(ExampleCoroutine());
+        visual.enabled = false; // Начальное состояние - невидимый
         targetPos = transform.position;
-    }
-
-    IEnumerator ExampleCoroutine()
-    {
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(3000);
-
-        visual.enabled = true;
     }
 
     void FixedUpdate()
@@ -39,7 +29,6 @@ public class MoveToGosling : MonoBehaviour
             targetPos = transform.position + (targetDirection.normalized * interpVelocity * Time.deltaTime);
 
             transform.position = Vector3.Lerp(transform.position, targetPos, 0.25f);
-
         }
     }
 }
