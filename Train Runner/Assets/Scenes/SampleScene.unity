@@ -2178,8 +2178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464076f4a6903e341bd88317ed2e6e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpVelocity: 1
-  target: {fileID: 407376577}
+  DisplacementCoef: 0.7
+  target: {fileID: 0}
+  MaxSpeed: 200
 --- !u!212 &1640676344
 SpriteRenderer:
   m_ObjectHideFlags: 0

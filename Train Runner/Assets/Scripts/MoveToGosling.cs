@@ -3,32 +3,28 @@ using System.Collections;
 
 public class MoveToGosling : MonoBehaviour
 {
-    public float interpVelocity;
+    public float DisplacementCoef = 0.5f;
     public GameObject target;
-    private Renderer visual;
-    Vector3 targetPos;
+    public float MaxSpeed = 1;
 
     void Start()
     {
-        visual = GetComponent<Renderer>();
-        visual.enabled = false; // Начальное состояние - невидимый
-        targetPos = transform.position;
+        GetComponent<Renderer>().enabled = false;
     }
 
     void FixedUpdate()
     {
-        if (target)
+        if (!target)
         {
-            Vector3 currentPositionNoZ = transform.position;
-            currentPositionNoZ.z = target.transform.position.z;
-
-            Vector3 targetDirection = (target.transform.position - currentPositionNoZ);
-
-            interpVelocity = targetDirection.magnitude * 2f;
-
-            targetPos = transform.position + (targetDirection.normalized * interpVelocity * Time.deltaTime);
-
-            transform.position = Vector3.Lerp(transform.position, targetPos, 0.25f);
+            return;
         }
+
+        var targetDirection = (target.transform.position - transform.position);
+        targetDirection.z = 0;
+
+        var displacement = targetDirection * DisplacementCoef * Time.deltaTime;
+        displacement = displacement.normalized * Mathf.Clamp(displacement.magnitude, 0, MaxSpeed * Time.deltaTime);
+
+        transform.position += displacement;
     }
 }
