@@ -9,11 +9,12 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.CameraMove)
+        if (GameManager.CameraMove && Train.arrived)
         {
             target = GameObject.Find("Ryan").transform;
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            smoothedPosition.y = 0;
 
             transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, transform.position.z);
         }

@@ -7,6 +7,7 @@ public class Hand_script : MonoBehaviour
 {
     private static float speed = 3f;
     private Renderer visual;
+    private GameObject ryan;
     private bool left = false;
     private bool right = false;
     private int angleLeft = 0;
@@ -16,6 +17,7 @@ public class Hand_script : MonoBehaviour
     void Start()
     {
         visual = GetComponent<Renderer>();
+        ryan = GameObject.Find("Ryan");
         visual.enabled = false;
     }
 
@@ -32,7 +34,7 @@ public class Hand_script : MonoBehaviour
         if (GameManager.RyanMove)
         {
             visual.enabled = true;
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePosition = ryan.transform.position;
             string objectName = gameObject.name;
 
             if (objectName == "Hand1")

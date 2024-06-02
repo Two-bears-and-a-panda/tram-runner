@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
+using static UnityEngine.ParticleSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +23,9 @@ public class GameManager : MonoBehaviour
     private static GameObject cake;
     private static GameObject capsule;
     private static GameObject conductor;
+    private static GameObject train;
+    private static GameObject train2;
+
 
     // Всякие флаги
     public static bool visableFlag = false;
@@ -48,6 +53,9 @@ public class GameManager : MonoBehaviour
         cake = GameObject.Find("Cake");
         capsule = GameObject.Find("Capsule");
         conductor = GameObject.Find("Conductor");
+        train = GameObject.Find("Train");
+        train2 = GameObject.Find("Train2");
+
 
         // Перемещаем объекты в нужные места
         arrowLeft.transform.position = new Vector3(-4.96f, 0.02f, 0);
@@ -81,16 +89,27 @@ public class GameManager : MonoBehaviour
         visableFlag = true;
     }
 
+    IEnumerator ShowConductorAfterDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        // Включаем Conductor и устанавливаем цель на Ryan
+        Renderer conductorRender = conductor.GetComponent<Renderer>();
+        conductorRender.enabled = true;
+        conductor.GetComponent<MoveToGosling>().target = ryan;
+
+    }
+
     void Update()
     {
-        TakeSomething = (batScript.TakeIt || CakeScript.TakeIt) ? true : false;
+        TakeSomething = batScript.TakeIt || CakeScript.TakeIt;
         Debug.Log(TakeSomething);
 
         // Когда нажата Lets Go, то ждём немного
         if (StartButton.IsItLetsGo)
         {
             MusicScript.TimeToPlay = true;
-            StartCoroutine(ExampleCoroutine(2.5f));
+            StartCoroutine(ExampleCoroutine(1));
+            Camera.FindObjectOfType<VideoPlayer>().enabled = false;
         }
 
         // Если была нажата Lets Go, то visableFlag == true
@@ -101,31 +120,37 @@ public class GameManager : MonoBehaviour
             // Пройтись по всем рендерерам и отключить их
             foreach (Renderer renderer in allRenderers)
             {
-                if (renderer.gameObject.name != "Square" && renderer.gameObject.name != "Grass" && renderer.gameObject.name != "bat"
-                    && renderer.gameObject.name != "Cake" && renderer.gameObject.name != "Capsule")
+                if (renderer.gameObject.name is not ("Square" or "Grass" or "bat" or "Cake" or "Capsule"))
                     renderer.enabled = false;
             }
+            train.GetComponent<Renderer>().enabled = true;
+            train2.GetComponent<Renderer>().enabled = true;
 
             // Появляем траву
             var grass = GameObject.Find("Grass");
             grass.transform.localScale = new Vector3(0.9264008f, 0.9264008f, 0.9264008f);
+        }
 
+        if (Train.arrived && visableFlag)
+        {
             // Уменьшаем Гослинга и появляем его
             ryan.transform.localScale = new Vector3(0.5f, 0.5f, 0);
             Renderer ryanRender = ryan.GetComponent<Renderer>();
             ryanRender.enabled = true;
 
-            // Включаем Conductor и устанавливаем цель на Ryan
-            Renderer conductorRender = conductor.GetComponent<Renderer>();
-            conductorRender.enabled = true;
-            conductor.GetComponent<MoveToGosling>().target = ryan;
+            
 
             // Разрешаем Гослингу бежать за мышкой
             RyanMove = true;
-            visableFlag = false;
 
             bat.transform.position = new Vector3(-6, 0, 0);
             cake.transform.position = new Vector3(6, 0, 0);
-        }        
+            visableFlag = false;
+
+            // Убираем траву
+            grass.GetComponent<Renderer>().enabled = false;
+
+            StartCoroutine(ShowConductorAfterDelay(4f));
+        }
     }
 }

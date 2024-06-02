@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class move : MonoBehaviour
 {
@@ -50,7 +51,10 @@ public class move : MonoBehaviour
         if (GameManager.RyanMove)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+            var newPosition = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+
+            newPosition.y = Math.Clamp(newPosition.y, -2.8f, 2.8f);
+            transform.position = newPosition;
 
             if (transform.position.x > mousePosition.x)
             {

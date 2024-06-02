@@ -14,7 +14,7 @@ public class Transition : MonoBehaviour
     {
         visual = GetComponent<Renderer>();
         visual.enabled = false;
-        StartCoroutine(ExampleCoroutine(20));
+        StartCoroutine(ExampleCoroutine(2));
     }
 
     IEnumerator ExampleCoroutine(int seconds)

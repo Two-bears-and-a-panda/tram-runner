@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static UnityEngine.InputManagerEntry;
 
 public class Leg_script : MonoBehaviour
 {
     private static float speed = 3f;
     private Renderer visual;
     private int tact = 0;
+    private GameObject ryan;
 
 
     void Start()
     {
         visual = GetComponent<Renderer>();
         visual.enabled = false;
+        ryan = GameObject.Find("Ryan");
     }
 
     IEnumerator ExampleCoroutine(int seconds)
@@ -30,7 +33,7 @@ public class Leg_script : MonoBehaviour
             visual.enabled = true;
 
             tact+=4;
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePosition = ryan.transform.position;
             string objectName = gameObject.name;
 
             mousePosition.y -= 1.6f;

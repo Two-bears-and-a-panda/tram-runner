@@ -24,7 +24,7 @@ public class MoveToGosling : MonoBehaviour
 
             Vector3 targetDirection = (target.transform.position - currentPositionNoZ);
 
-            interpVelocity = targetDirection.magnitude * 3f;
+            interpVelocity = targetDirection.magnitude * 2f;
 
             targetPos = transform.position + (targetDirection.normalized * interpVelocity * Time.deltaTime);
 
