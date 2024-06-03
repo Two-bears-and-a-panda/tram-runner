@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private static GameObject plane;
     private static GameObject go;
     private static GameObject light;
-    private static GameObject ryan;
+    public static GameObject ryan;
     private static GameObject transition;
     private static GameObject grass;
     private static GameObject hand1;
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
             // Пройтись по всем рендерерам и отключить их
             foreach (Renderer renderer in allRenderers)
             {
-                if (renderer.gameObject.name is not ("Square" or "Grass" or "bat" or "Cake" or "Capsule"))
+                if (renderer.gameObject.name is not ("Square" or "Grass" or "bat" or "Cake" or "Capsule" or "Seat"))
                     renderer.enabled = false;
             }
             train.GetComponent<Renderer>().enabled = true;
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         if (Train.arrived && visableFlag)
         {
             // Уменьшаем Гослинга и появляем его
-            ryan.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+            ryan.transform.localScale = new Vector3(0.45f, 0.45f, 0);
             Renderer ryanRender = ryan.GetComponent<Renderer>();
             ryanRender.enabled = true;
 
