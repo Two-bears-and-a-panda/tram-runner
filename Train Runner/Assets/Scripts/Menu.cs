@@ -15,7 +15,7 @@ public class Menu : MonoBehaviour
     {
         visual = GetComponent<Renderer>();
         visual.enabled = false;
-        StartCoroutine(ExampleCoroutine(2));
+        StartCoroutine(ExampleCoroutine(22));
     }
 
     IEnumerator ExampleCoroutine(int seconds)
@@ -37,16 +37,16 @@ public class Menu : MonoBehaviour
         string objectName = gameObject.name;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (objectName == "Ryan") //Покачивания для Райана - всегда
+        if (objectName == "Ryan") //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             Swaying();
         }
-        //Покачивание для остальных - при наведении мышки
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         else if (Math.Abs(transform.position.x - mousePosition.x) < 0.5 && Math.Abs(transform.position.y - mousePosition.y) < 0.5 && objectName != "back" && objectName != "Light")
         {
             Swaying();
         }
-        //Приводим стрелочки к изначальному размеру
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         else if (objectName == "ArrowLeft" || objectName == "ArrowRight")
         {
             transform.localScale = new Vector3(transform.localScale.x, 0.2354f, transform.localScale.z);

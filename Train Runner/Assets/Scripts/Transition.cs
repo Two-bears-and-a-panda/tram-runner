@@ -14,14 +14,14 @@ public class Transition : MonoBehaviour
     {
         visual = GetComponent<Renderer>();
         visual.enabled = false;
-        StartCoroutine(ExampleCoroutine(2));
+        StartCoroutine(ExampleCoroutine(20));
     }
 
     IEnumerator ExampleCoroutine(int seconds)
     {
         yield return new WaitForSeconds(seconds);
         var spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = new Color(0, 0, 0, 0); //Делаем черный фон прозрачным
+        spriteRenderer.color = new Color(0, 0, 0, 0); //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         visual.enabled = true;
         IsTimeToShow = true;
     }
@@ -54,7 +54,7 @@ public class Transition : MonoBehaviour
             }
         }
 
-        //Если была нажата Lets Go - нам снова нужно затемнение
+        //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Lets Go - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (StartButton.IsItLetsGo)
         {
             IsTimeToShow = true;
