@@ -53,7 +53,7 @@ public class move : MonoBehaviour
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var newPosition = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
 
-            newPosition.y = Math.Clamp(newPosition.y, -2.8f, 2.8f);
+            newPosition.y = Math.Clamp(newPosition.y, GameManager.BottomBorder, GameManager.TopBorder);
             transform.position = newPosition;
 
             if (transform.position.x > mousePosition.x)

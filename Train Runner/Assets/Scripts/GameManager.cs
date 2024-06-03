@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     private static GameObject train;
     private static GameObject train2;
 
+    public static float TopBorder = 2.6f;
+    public static float BottomBorder = -2.6f;
+
 
     // Всякие флаги
     public static bool visableFlag = false;

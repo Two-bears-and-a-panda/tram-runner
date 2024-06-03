@@ -25,7 +25,7 @@ public class GenerateSeats : MonoBehaviour
 
             if (generationCursor < nextSeatXCoord)
             {
-                var seatPosition = new Vector3(nextSeatXCoord, Random.Range(-2.6f, 1.6f));
+                var seatPosition = new Vector3(nextSeatXCoord, Random.Range(GameManager.BottomBorder, GameManager.TopBorder));
                 seats.Enqueue(Instantiate(Prefab, seatPosition, Quaternion.identity));
 
                 nextSeatXCoord += SeatsStep;
