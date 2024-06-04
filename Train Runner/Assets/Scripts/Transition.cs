@@ -14,7 +14,7 @@ public class Transition : MonoBehaviour
     {
         visual = GetComponent<Renderer>();
         visual.enabled = false;
-        StartCoroutine(ExampleCoroutine(20));
+        StartCoroutine(ExampleCoroutine(19));
     }
 
     IEnumerator ExampleCoroutine(int seconds)
@@ -35,7 +35,7 @@ public class Transition : MonoBehaviour
             {
                 var spriteRebderer = GetComponent<SpriteRenderer>();
                 spriteRebderer.color = new Color(0, 0, 0, visability);
-                visability -= 0.0007f;
+                visability -= 0.003f;
                 if (visability <= 0f)
                 {
                     IsTimeToShow = false;
@@ -45,7 +45,7 @@ public class Transition : MonoBehaviour
             {
                 var spriteRenderer = GetComponent<SpriteRenderer>();
                 spriteRenderer.color = new Color(0, 0, 0, visability);
-                visability += 0.002f;
+                visability += 0.003f;
                 if (visability >= 1f)
                 {
                     IsTimeToHide = true;

@@ -41,8 +41,13 @@ public class Menu : MonoBehaviour
         {
             Swaying();
         }
+<<<<<<< Updated upstream
         //Покачивание для остальных - при наведении мышки
         else if (Math.Abs(transform.position.x - mousePosition.x) < 0.5 && Math.Abs(transform.position.y - mousePosition.y) < 0.5 && objectName != "back" && objectName != "Light")
+=======
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        else if (Math.Abs(transform.position.x - mousePosition.x) < 2 && Math.Abs(transform.position.y - mousePosition.y) < 0.9 && objectName != "back" && objectName != "Light")
+>>>>>>> Stashed changes
         {
             Swaying();
         }
