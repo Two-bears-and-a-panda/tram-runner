@@ -24,7 +24,7 @@ public class Hand_script : MonoBehaviour
     IEnumerator ExampleCoroutine(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        visual.enabled = true;
+        visual.enabled = false;
     }
 
 
@@ -33,7 +33,7 @@ public class Hand_script : MonoBehaviour
     {
         if (GameManager.RyanMove)
         {
-            visual.enabled = true;
+            visual.enabled = false;
             Vector2 mousePosition = ryan.transform.position;
             string objectName = gameObject.name;
 

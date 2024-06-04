@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
             target = GameObject.Find("Ryan").transform;
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            smoothedPosition.y = 0;
+            smoothedPosition.y = Mathf.Clamp(smoothedPosition.y, -1.6f, 1.6f);
 
             transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, transform.position.z);
         }

@@ -31,10 +31,16 @@ public class MoveToGosling : MonoBehaviour
 
         transform.position += displacement;
 
-        if (Vector3.Distance(transform.position, target.transform.position) < stopDistance)
-        {
+        //if (Vector3.Distance(transform.position, target.transform.position) < stopDistance)
+        //{
+        //    ShowGameOver();
+        //}
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Ryan")
             ShowGameOver();
-        }
     }
 
     void ShowGameOver()

@@ -6,7 +6,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class move : MonoBehaviour
 {
-    public static float speed = 3f;
+    public float speed = 3f;
     private static bool IsTimeToShowSkin = false;
     private float scaleAmount = 0.3f;
     private float scaleSpeed = 1.3f;
@@ -15,7 +15,7 @@ public class move : MonoBehaviour
     public static string skin = "Ryan";
     public static int currentSkin = 0;
     public static string moveDirection = "";
-
+    public float maxSpeed;
 
     void Start()
     {
@@ -50,18 +50,19 @@ public class move : MonoBehaviour
         }
         if (GameManager.RyanMove)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var newPosition = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
 
-            newPosition.y = Math.Clamp(newPosition.y, GameManager.BottomBorder, GameManager.TopBorder);
-            transform.position = newPosition;
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.AddForce((Vector2)(mousePosition - transform.position)* speed);
+            rb.velocity = rb.velocity.normalized * Mathf.Clamp(rb.velocity.magnitude, 0, maxSpeed);
 
-            if (transform.position.x > mousePosition.x)
+            if (newPosition.x > mousePosition.x)
             {
                 moveDirection = "left";
                 transform.localScale = new Vector3(-Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else if (transform.position.x < mousePosition.x)
+            else if (newPosition.x < mousePosition.x)
             {
                 moveDirection = "right";
                 transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);

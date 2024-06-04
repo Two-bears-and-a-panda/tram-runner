@@ -21,7 +21,7 @@ public class Leg_script : MonoBehaviour
     IEnumerator ExampleCoroutine(int seconds)
     {
         yield return new WaitForSeconds(seconds);
-        visual.enabled = true;
+        visual.enabled = false;
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class Leg_script : MonoBehaviour
     {
         if (GameManager.RyanMove)
         {
-            visual.enabled = true;
+            visual.enabled = false;
 
             tact+=4;
             Vector2 mousePosition = ryan.transform.position;
